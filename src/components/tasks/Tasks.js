@@ -1,23 +1,42 @@
-import React from 'react';
-import { DONE, IN_PROGRESS, IN_REVIEW, TO_DO } from '../../typing/task-typing';
+import React, { useState } from 'react';
+import { taskLogic } from '../../domain/tasks';
+
+import './task-style.css';
+import TaskForm from './taskForm/taskForm';
 
 function Tasks() {
+  const [tasksList, setTasksList] = useState(taskLogic.getTasks());
+  const handleTaskAdd = (taskName) => {
+    const newList = taskLogic.addTask(tasksList, taskName);
+    setTasksList(newList);
+  };
   return (
-    <div className="Tasks-main">
-      <ul>
-        {fakeData.map((task, i) => (
-          <li key="i"> {task.title}</li>
-        ))}
-      </ul>
+    <div>
+      <TaskForm addTaskToList={handleTaskAdd} />
+      <div className="tasks-main">
+        <ul>
+          {taskLogic.getTasksToDo(tasksList).map((task, i) => (
+            <li key={i}> {task.title}</li>
+          ))}
+        </ul>
+        <ul>
+          {taskLogic.getTasksInProgress(tasksList).map((task, i) => (
+            <li key={i}> {task.title}</li>
+          ))}
+        </ul>
+        <ul>
+          {taskLogic.getTasksInReview(tasksList).map((task, i) => (
+            <li key={i}> {task.title}</li>
+          ))}
+        </ul>
+        <ul>
+          {taskLogic.getTasksDone(tasksList).map((task, i) => (
+            <li key={i}> {task.title}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
-
-const fakeData = [
-  { title: 'create new react project', status: DONE },
-  { title: 'setup git repo', status: IN_REVIEW },
-  { title: 'initial folder structures', status: IN_PROGRESS },
-  { title: 'show fake data on initial layout', status: TO_DO },
-];
 
 export default Tasks;
