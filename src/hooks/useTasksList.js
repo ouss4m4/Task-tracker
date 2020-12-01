@@ -3,10 +3,17 @@ import { taskLogic } from '../domain/tasks';
 
 export const useTasksList = (initialValue) => {
   const [tasksList, setTasksList] = useState(initialValue);
-  const handleTaskAdd = (taskName) => {
+
+  const addTask = (taskName) => {
     const newList = taskLogic.addTask(tasksList, taskName);
     setTasksList(newList);
   };
 
-  return { tasksList, handleTaskAdd };
+  const editTask = (editedTask) => {
+    const newList = taskLogic.editTask(tasksList, editedTask);
+    console.log('edited task, setting state')
+    setTasksList(newList);
+  };
+
+  return { tasksList, addTask, editTask };
 };

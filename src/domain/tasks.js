@@ -31,13 +31,14 @@ class TasksLogic {
     return list.concat([{ title, status: TO_DO }]);
   }
 
-  editTask(task) {
-    const itemIndex = this.fakeData.findIndex(
-      (item) => task.title === item.title
-    );
-    const oldLines = this.fakeData.slice();
-    oldLines[itemIndex] = { title: task.title, status: task.status };
-    this.fakeData = oldLines;
+  editTask(list, { title, status }) {
+    const itemIndex = list.findIndex((item) => title === item.title);
+    const newLines = list.slice();
+    newLines[itemIndex] = {
+      title: title,
+      status: status,
+    };
+    return newLines;
   }
 
   removeTask(task) {

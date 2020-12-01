@@ -2,12 +2,12 @@ import React from 'react';
 import useFormState from '../../hooks/useFormState';
 
 function TaskForm({ addTaskToList }) {
-  const taskController = useFormState('');
+  const { value, onChange, resetInput } = useFormState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (taskController.value.trim().length) {
-      addTaskToList(taskController.value);
-      taskController.resetInput();
+    if (value.trim().length) {
+      addTaskToList(value);
+      resetInput();
     }
   };
 
@@ -17,7 +17,8 @@ function TaskForm({ addTaskToList }) {
       <input
         name="task"
         placeholder="task name"
-        {...taskController}
+        value={value}
+        onChange={onChange}
         type="text"
       />
     </form>
