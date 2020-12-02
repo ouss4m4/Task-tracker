@@ -1,44 +1,32 @@
 import React from 'react';
-import TaskItem from '../taskItem/TaskItem';
-import PropTypes from 'prop-types';
-import { DONE, IN_PROGRESS, IN_REVIEW, TO_DO } from '../../typing/task-typing';
+import { useDrop } from 'react-dnd';
 
-function TaskList({ list, editTask }) {
-  const handleEditClick = (task) => {
-    switch (task.status) {
-      case TO_DO:
-        task.status = IN_PROGRESS;
-        break;
-      case IN_PROGRESS:
-        task.status = IN_REVIEW;
-        break;
-      case IN_REVIEW:
-        task.status = DONE;
-        break;
-      case DONE:
-        task.status = TO_DO;
-        break;
-      default:
-        break;
-    }
-    editTask(task);
+import { ItemTypes } from '../../constants/Constants';
+import TaskItem from '../taskItem/TaskItem';
+import './taskList.css';
+
+function TaskList({ list, editTask, listType }) {
+  const [, drop] = useDrop({
+    accept: ItemTypes.TASK,
+    drop: (dropedTask) => handleItemDrop(dropedTask.task),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
+  const handleItemDrop = (task) => {
+    editTask(Object.assign({ ...task }, { status: listType }));
   };
   return (
-    <div>
-      <ul>
+    <div ref={drop}>
+      <div className="task-list">
         {list &&
           list.map((item, index) => (
-            <li key={index} onClick={() => handleEditClick(item)}>
-              <TaskItem title={item.title} status={item.status} />
-            </li>
+            <TaskItem key={index} title={item.title} status={item.status} />
           ))}
-      </ul>
+      </div>
     </div>
   );
 }
-
-TaskItem.propTypes = {
-  list: PropTypes.array,
-};
 
 export default TaskList;
