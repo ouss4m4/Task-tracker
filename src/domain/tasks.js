@@ -5,7 +5,12 @@ class TasksLogic {
     { title: 'create new react project', status: DONE },
     { title: 'setup git repo', status: DONE },
     { title: 'initial folder structures', status: DONE },
+    { title: 'connect to AWS', status: DONE },
     { title: 'show fake data on initial layout', status: DONE },
+    { title: 'add Drag N Drop', status: DONE },
+    { title: 'persist on local storage', status: IN_REVIEW },
+    { title: 'ability to delete tasks', status: IN_PROGRESS },
+    { title: 'leverage the Context api using hooks', status: TO_DO },
   ];
 
   getTasks() {
