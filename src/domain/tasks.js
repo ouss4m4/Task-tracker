@@ -3,9 +3,9 @@ import { DONE, IN_PROGRESS, IN_REVIEW, TO_DO } from '../typing/task-typing';
 class TasksLogic {
   fakeData = [
     { title: 'create new react project', status: DONE },
-    { title: 'setup git repo', status: IN_REVIEW },
-    { title: 'initial folder structures', status: IN_PROGRESS },
-    { title: 'show fake data on initial layout', status: TO_DO },
+    { title: 'setup git repo', status: DONE },
+    { title: 'initial folder structures', status: DONE },
+    { title: 'show fake data on initial layout', status: DONE },
   ];
 
   getTasks() {

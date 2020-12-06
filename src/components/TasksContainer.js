@@ -10,13 +10,13 @@ import './task-style.css';
 import { DONE, IN_PROGRESS, IN_REVIEW, TO_DO } from '../typing/task-typing';
 
 function TasksContainer() {
-  const { tasksList, addTask, editTask } = useTasksList(taskLogic.getTasks());
+  const { tasksList, addTask, editTask } = useTasksList();
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="container">
         <TaskForm addTaskToList={addTask} />
         <div className="tasks-main">
-          <div>
+          <div className="list-wrap">
             <h4>TO DO</h4>
             <TaskList
               list={taskLogic.getTasksToDo(tasksList)}
@@ -25,7 +25,7 @@ function TasksContainer() {
             />
           </div>
 
-          <div>
+          <div className="list-wrap">
             <h4>IN PROGRESS</h4>
             <TaskList
               list={taskLogic.getTasksInProgress(tasksList)}
@@ -34,7 +34,7 @@ function TasksContainer() {
             />
           </div>
 
-          <div>
+          <div className="list-wrap">
             <h4>IN REVIEW</h4>
             <TaskList
               list={taskLogic.getTasksInReview(tasksList)}
@@ -43,7 +43,7 @@ function TasksContainer() {
             />
           </div>
 
-          <div>
+          <div className="list-wrap">
             <h4>DONE</h4>
             <TaskList
               list={taskLogic.getTasksDone(tasksList)}
